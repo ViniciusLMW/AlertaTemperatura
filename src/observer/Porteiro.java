@@ -3,7 +3,6 @@ package observer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class Porteiro extends Thread{
 
@@ -13,23 +12,12 @@ public class Porteiro extends Thread{
         this.observers.add(observer);
     } 
 
-    @Override
-    public void run() {
-        Scanner input = new Scanner(System.in);
+    public void notificarChegadaAniversariante() {
+        ChegadaAniversarianteEvent event = new ChegadaAniversarianteEvent(new Date());
 
-        while(true) {
-            int valor = input.nextInt();
-
-            if(valor == 1) {
-                ChegadaAniversarianteEvent event = new ChegadaAniversarianteEvent(new Date());
-
-                // Notificar os observers
-                for(ChegadaAniversarianteObserver observer: this.observers) {
-                    observer.chegou(event);
-                }
-            } else {
-                System.out.println("Alarme falso!");
-            }
+        //Notificar os observers
+        for (ChegadaAniversarianteObserver observer : this.observers) {
+            observer.chegou(event);
         }
     }
 }
